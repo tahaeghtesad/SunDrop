@@ -10,6 +10,8 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
@@ -26,15 +28,16 @@ import java.util.List;
 public class SpringSecurityConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth, UserDetailsService service) throws Exception {
-        auth.userDetailsService(service);
+    public void configureGlobal(AuthenticationManagerBuilder auth, UserDetailsService service, PasswordEncoder encoder) throws Exception {
+        auth.userDetailsService(service).passwordEncoder(encoder);
     }
 
     @Bean
     @Autowired
-    public AuthenticationProvider daoAuthenticationProvider(UserDetailsService service){
+    public AuthenticationProvider daoAuthenticationProvider(UserDetailsService service, PasswordEncoder encoder){
         DaoAuthenticationProvider provider =  new DaoAuthenticationProvider();
         provider.setUserDetailsService(service);
+        provider.setPasswordEncoder(encoder);
         return provider;
     }
 
@@ -61,12 +64,20 @@ public class SpringSecurityConfig extends ResourceServerConfigurerAdapter {
         return handler;
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
         http.csrf().disable();
         http.httpBasic().disable();
 
-        http.authorizeRequests().antMatchers("/oauth/**").permitAll().anyRequest().authenticated();
+        http
+                .authorizeRequests()
+                .antMatchers("/oauth/**").permitAll()
+                .anyRequest().authenticated();
     }
 }

@@ -3,13 +3,12 @@ package ir.arcinc.sundrop.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -29,6 +28,10 @@ public class User implements UserDetails {
 
     private String username;
     private String password;
+
+    @OneToOne
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    private Directory rootDir;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
