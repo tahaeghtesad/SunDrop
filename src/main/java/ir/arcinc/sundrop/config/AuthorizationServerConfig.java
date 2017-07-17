@@ -44,5 +44,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.tokenStore(tokenStore).userApprovalHandler(userApprovalHandler)
                 .authenticationManager(authenticationManager);
     }
-
 }
