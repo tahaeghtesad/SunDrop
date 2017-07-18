@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DirectoryRepository extends CrudRepository<Directory, Long> {
     Directory findById(Long id);
+    Directory deleteById(Long id);
 }

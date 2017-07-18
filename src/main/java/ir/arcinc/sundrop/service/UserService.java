@@ -19,8 +19,8 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -32,7 +32,8 @@ public class UserService implements UserDetailsService {
             throw new Exception("Username already taken");
         User u = new User();
         u.setUsername(username);
-        u.setPassword(passwordEncoder.encode(password));
+//        u.setPassword(passwordEncoder.encode(password));
+        u.setPassword(password);
         Directory rootDir = new Directory();
         rootDir.setName("root");
         rootDir.setOwner(u);
@@ -45,7 +46,8 @@ public class UserService implements UserDetailsService {
         User u = userRepository.findUserByUsername(username);
         if (u == null)
             throw new Exception("User does not exist");
-        u.setPassword(passwordEncoder.encode(password));
+//        u.setPassword(passwordEncoder.encode(password));
+        u.setPassword(password);
         userRepository.save(u);
         return u;
     }

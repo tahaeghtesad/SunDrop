@@ -1,8 +1,10 @@
 package ir.arcinc.sundrop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -22,11 +24,16 @@ public class File {
 
     private String name;
 
-    private String extension;
+    @ManyToOne
+    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @JsonIgnore
+    private Directory parent;
 
     @ManyToOne
     @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
-    private Directory parent;
+    @JsonIgnore
+    private User owner;
 
+    @JsonIgnore
     private String path;
 }

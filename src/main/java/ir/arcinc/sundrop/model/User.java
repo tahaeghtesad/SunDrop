@@ -1,8 +1,10 @@
 package ir.arcinc.sundrop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +33,7 @@ public class User implements UserDetails {
 
     @OneToOne
     @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
+    @JsonIgnore
     private Directory rootDir;
 
     @Override

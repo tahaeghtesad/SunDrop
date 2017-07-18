@@ -1,8 +1,10 @@
 package ir.arcinc.sundrop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 
@@ -26,16 +28,20 @@ public class Directory {
 
     @OneToMany(mappedBy = "parent")
     @Cascade(value = CascadeType.ALL)
+    @JsonIgnore
     private List<Directory> subdirs;
 
     @ManyToOne
     @Cascade(value = CascadeType.ALL)
+    @JsonIgnore
     private Directory parent;
 
     @OneToMany(mappedBy = "parent")
     @Cascade(value = CascadeType.ALL)
+    @JsonIgnore
     private List<File> files;
 
     @ManyToOne
+    @JsonIgnore
     private User owner;
 }

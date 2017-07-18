@@ -13,19 +13,18 @@ import java.security.Principal;
  * Created by tahae on 7/16/2017.
  */
 @RestController
-@RequestMapping(name = "/api")
+@RequestMapping("/api/")
 public class IndexController {
 
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @RequestMapping("/api")
+    @RequestMapping("/")
     public Principal index(Principal user){
-        System.out.println(user);
         return user;
     }
 
-    @RequestMapping("/api/user")
+    @RequestMapping("/me")
     public User user(Principal user){
         return (User) userDetailsService.loadUserByUsername(user.getName());
     }

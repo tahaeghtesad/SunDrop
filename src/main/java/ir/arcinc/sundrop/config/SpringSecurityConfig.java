@@ -28,16 +28,20 @@ import java.util.List;
 public class SpringSecurityConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth, UserDetailsService service, PasswordEncoder encoder) throws Exception {
-        auth.userDetailsService(service).passwordEncoder(encoder);
+    public void configureGlobal(AuthenticationManagerBuilder auth, UserDetailsService service
+                                //        , PasswordEncoder encoder
+    ) throws Exception {
+        auth.userDetailsService(service);//.passwordEncoder(encoder);
     }
 
     @Bean
     @Autowired
-    public AuthenticationProvider daoAuthenticationProvider(UserDetailsService service, PasswordEncoder encoder){
+    public AuthenticationProvider daoAuthenticationProvider(UserDetailsService service
+                                                            //, PasswordEncoder encoder
+    ){
         DaoAuthenticationProvider provider =  new DaoAuthenticationProvider();
         provider.setUserDetailsService(service);
-        provider.setPasswordEncoder(encoder);
+        //provider.setPasswordEncoder(encoder);
         return provider;
     }
 
@@ -64,10 +68,10 @@ public class SpringSecurityConfig extends ResourceServerConfigurerAdapter {
         return handler;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
