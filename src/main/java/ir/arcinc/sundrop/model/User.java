@@ -33,7 +33,6 @@ public class User implements UserDetails {
 
     @OneToOne
     @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
-    @JsonIgnore
     private Directory rootDir;
 
     @Override
