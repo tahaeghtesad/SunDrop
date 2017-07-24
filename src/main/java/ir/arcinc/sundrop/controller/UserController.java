@@ -4,6 +4,8 @@ import ir.arcinc.sundrop.model.Directory;
 import ir.arcinc.sundrop.model.User;
 import ir.arcinc.sundrop.repository.UserRepository;
 import ir.arcinc.sundrop.service.UserService;
+import ir.arcinc.sundrop.viewmodel.ChangePasswordViewModel;
+import ir.arcinc.sundrop.viewmodel.RegisterViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,13 +27,13 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    public User changePassword(Principal user, @RequestBody String password) throws Exception {
-        return userService.changePassword(user.getName(), password);
+    public User changePassword(Principal user, @RequestBody ChangePasswordViewModel vm) throws Exception {
+        return userService.changePassword(user.getName(), vm.getPassword());
     }
 
     @RequestMapping(value = "/",method = RequestMethod.PUT)
-    public User changePassword(@RequestBody String username, @RequestBody String password) throws Exception {
-        return userService.createUser(username,password);
+    public User createUser(@RequestBody RegisterViewModel vm) throws Exception {
+        return userService.createUser(vm.getUsername(), vm.getPassword());
     }
 
 }
