@@ -27,8 +27,8 @@ public class FileController {
      * Upload multiple file using Spring Controller
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public File uploadMultipleFileHandler(Principal user, @RequestBody FileUploadViewModel vm, @RequestParam MultipartFile file) throws Exception {
-        return fileService.saveFile(user.getName(), vm.getParentDir(), vm.getName(), file);
+    public File uploadMultipleFileHandler(Principal user, @RequestParam("name") String name, @RequestParam("parentDir") Long parentDir, @RequestParam("file") MultipartFile file) throws Exception {
+        return fileService.saveFile(user.getName(), parentDir, name, file);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
