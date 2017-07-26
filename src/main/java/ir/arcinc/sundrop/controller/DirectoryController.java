@@ -3,6 +3,7 @@ package ir.arcinc.sundrop.controller;
 import ir.arcinc.sundrop.model.Directory;
 import ir.arcinc.sundrop.service.DirectoryService;
 import ir.arcinc.sundrop.service.FileService;
+import ir.arcinc.sundrop.viewmodel.NewDirectoryViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,8 +23,8 @@ public class DirectoryController {
     private DirectoryService directoryService;
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public Directory createDirectory(Principal user, @RequestBody String name, @RequestBody Long parentId) throws Exception {
-        return directoryService.createDirectory(user.getName(), name, parentId);
+    public Directory createDirectory(Principal user, @RequestBody NewDirectoryViewModel vm) throws Exception {
+        return directoryService.createDirectory(user.getName(), vm.getName(), vm.getParentId());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
