@@ -54,7 +54,7 @@ public class FileService {
                 dir.mkdirs();
 
             // Create the file on server
-            String path = dir.getAbsolutePath()
+            String path = dir.getCanonicalPath()
                     + File.separator + name;
             File serverFile = new File(path);
             BufferedOutputStream stream = new BufferedOutputStream(
