@@ -13,5 +13,4 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadViewModel {
     private Long parentDir;
     private String name;
-    private MultipartFile file;
 }
