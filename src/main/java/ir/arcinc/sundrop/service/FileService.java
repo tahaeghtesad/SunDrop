@@ -7,6 +7,7 @@ import ir.arcinc.sundrop.repository.FileRepository;
 import ir.arcinc.sundrop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,8 +24,7 @@ import java.util.Objects;
  */
 @Service
 public class FileService {
-    @Value("${storage.root.path}")
-    private static String storageRoot;
+    private static String storageRoot = "~/storage/";
 
     @Autowired
     private DirectoryRepository directoryRepository;
