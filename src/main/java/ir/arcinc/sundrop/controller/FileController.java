@@ -40,13 +40,9 @@ public class FileController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public boolean getFile(Principal user, @PathVariable("id") Long id){
-        try{
+    public boolean getFile(Principal user, @PathVariable("id") Long id) throws Exception {
             fileService.deleteFile(user.getName(),id);
             return true;
-        } catch (Exception e){
-            return false;
-        }
     }
 
     @RequestMapping(value = "/parent/{id}", method = RequestMethod.GET)
