@@ -38,12 +38,12 @@ public class DirectoryController {
     }
 
     @RequestMapping(value = "/listdir/{id}", method = RequestMethod.GET)
-    public List<Long> listDirectories(Principal user, @PathVariable("id") Long id) throws Exception {
+    public List<Directory> listDirectories(Principal user, @PathVariable("id") Long id) throws Exception {
         return directoryService.directoryList(user.getName(), id);
     }
 
     @RequestMapping(value = "/listfile/{id}", method = RequestMethod.GET)
-    public List<Long> listFiles(Principal user, @PathVariable("id") Long id) throws Exception {
+    public List<ir.arcinc.sundrop.model.File> listFiles(Principal user, @PathVariable("id") Long id) throws Exception {
         return directoryService.fileList(user.getName(), id);
     }
 

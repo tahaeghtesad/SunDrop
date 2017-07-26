@@ -48,28 +48,22 @@ public class DirectoryService {
        directoryRepository.deleteById(id);
     }
 
-    public List<Long> directoryList(String username, Long id) throws Exception {
+    public List<Directory> directoryList(String username, Long id) throws Exception {
         Directory directory = directoryRepository.findById(id);
         if (directory == null)
             throw new Exception("directory not found");
         if (!Objects.equals(directory.getOwner().getUsername(), username))
             throw new Exception("not owned by you");
-        List<Long> ret = new ArrayList<>();
-        for (Directory d : directory.getSubdirs())
-            ret.add(d.getId());
-        return ret;
+        return directory.getSubdirs();
     }
 
-    public List<Long> fileList(String username, Long id) throws Exception {
+    public List<File> fileList(String username, Long id) throws Exception {
         Directory directory = directoryRepository.findById(id);
         if (directory == null)
             throw new Exception("directory not found");
         if (!Objects.equals(directory.getOwner().getUsername(), username))
             throw new Exception("not owned by you");
-        List<Long> ret = new ArrayList<>();
-        for (File d : directory.getFiles())
-            ret.add(d.getId());
-        return ret;
+        return directory.getFiles();
     }
 
     public Long getParent(String username, Long id) throws Exception {
