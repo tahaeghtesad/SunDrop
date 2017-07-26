@@ -2,6 +2,7 @@ package ir.arcinc.sundrop.controller;
 
 import ir.arcinc.sundrop.model.File;
 import ir.arcinc.sundrop.service.FileService;
+import ir.arcinc.sundrop.viewmodel.FileUploadViewModel;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,9 +27,8 @@ public class FileController {
      * Upload multiple file using Spring Controller
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public List<File> uploadMultipleFileHandler(Principal user, @RequestParam Long parentDir, @RequestParam("name") String[] names,
-                                                @RequestParam("file") MultipartFile[] files) throws Exception {
-        return fileService.saveFile(user.getName(), parentDir, names, files);
+    public List<File> uploadMultipleFileHandler(Principal user, @RequestBody FileUploadViewModel vm) throws Exception {
+        return fileService.saveFile(user.getName(), vm.getParentDir(), vm.getNames(), vm.getFiles());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
