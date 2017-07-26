@@ -35,12 +35,7 @@ public class FileService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<ir.arcinc.sundrop.model.File> saveFile(String username, Long directory, String[] names, MultipartFile[] files) throws Exception {
-
-        List<ir.arcinc.sundrop.model.File> uploadedFiles = new ArrayList<>();
-
-        if (files.length != names.length)
-            throw new Exception("names do not match files");
+    public ir.arcinc.sundrop.model.File saveFile(String username, Long directory, String name, MultipartFile file) throws Exception {
 
         User user = userRepository.findUserByUsername(username);
         if(user == null)
@@ -49,44 +44,35 @@ public class FileService {
         Directory parent = directoryRepository.findById(directory);
         if (parent == null)
             throw new Exception("parent directory not found");
+        ir.arcinc.sundrop.model.File dbFile = new ir.arcinc.sundrop.model.File();
+        try{
+            byte[] bytes = file.getBytes();
 
-        String message = "";
-        for (int i = 0; i < files.length; i++) {
-            MultipartFile file = files[i];
-            String name = names[i];
-            try {
-                byte[] bytes = file.getBytes();
+            // Creating the directory to store file
+            File dir = new File(storageRoot + File.separator + directory);
+            if (!dir.exists())
+                dir.mkdirs();
 
-                // Creating the directory to store file
-                File dir = new File(storageRoot + File.separator + directory);
-                if (!dir.exists())
-                    dir.mkdirs();
+            // Create the file on server
+            String path = dir.getAbsolutePath()
+                    + File.separator + name;
+            File serverFile = new File(path);
+            BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(serverFile));
+            stream.write(bytes);
+            stream.close();
 
-                // Create the file on server
-                String path = dir.getAbsolutePath()
-                        + File.separator + name;
-                File serverFile = new File(path);
-                BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
+            dbFile.setName(name);
+            dbFile.setPath(path);
+            dbFile.setOwner(user);
+            dbFile.setParent(parent);
+            fileRepository.save(dbFile);
 
-                message = message + "You successfully uploaded file=" + name
-                        + "\n";
-
-                ir.arcinc.sundrop.model.File dbFile = new ir.arcinc.sundrop.model.File();
-                dbFile.setName(name);
-                dbFile.setPath(path);
-                dbFile.setOwner(user);
-                dbFile.setParent(parent);
-                fileRepository.save(dbFile);
-                uploadedFiles.add(dbFile);
-
-            } catch (Exception e) {
-                throw new Exception("You failed to upload " + name + " => " + e.getMessage());
-            }
+        } catch (Exception e) {
+            throw new Exception("You failed to upload " + name + " => " + e.getMessage());
         }
-        return uploadedFiles;
+
+        return dbFile;
     }
 
     public String getPath(Long id) throws Exception {

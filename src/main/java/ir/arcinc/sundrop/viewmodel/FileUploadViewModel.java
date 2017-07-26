@@ -12,6 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class FileUploadViewModel {
     private Long parentDir;
-    private String[] names;
-    private MultipartFile[] files;
+    private String name;
+    private MultipartFile file;
 }
