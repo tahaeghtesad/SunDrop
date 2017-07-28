@@ -19,7 +19,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class File {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;

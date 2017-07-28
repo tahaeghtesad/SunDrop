@@ -94,7 +94,7 @@ public class FileService {
     public Long getParent(String username, Long id) throws Exception {
         ir.arcinc.sundrop.model.File file = fileRepository.findById(id);
         if (file == null)
-            throw new Exception("directory not found");
+            throw new Exception("file not found");
         if (!Objects.equals(file.getOwner().getUsername(), username))
             throw new Exception("not owned by you");
         return file.getParent().getId();
@@ -103,7 +103,7 @@ public class FileService {
     public ir.arcinc.sundrop.model.File getInfo(String username, Long id) throws Exception {
         ir.arcinc.sundrop.model.File file = fileRepository.findById(id);
         if (file == null)
-            throw new Exception("directory not found");
+            throw new Exception("file not found");
         if (!Objects.equals(file.getOwner().getUsername(), username))
             throw new Exception("not owned by you");
         return file;

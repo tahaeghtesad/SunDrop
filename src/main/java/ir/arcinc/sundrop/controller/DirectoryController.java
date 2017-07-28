@@ -37,6 +37,11 @@ public class DirectoryController {
         }
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Directory info(Principal user, @PathVariable("id") Long id) throws Exception {
+        return directoryService.findDirectory(user.getName(), id);
+    }
+
     @RequestMapping(value = "/listdir/{id}", method = RequestMethod.GET)
     public List<Directory> listDirectories(Principal user, @PathVariable("id") Long id) throws Exception {
         return directoryService.directoryList(user.getName(), id);

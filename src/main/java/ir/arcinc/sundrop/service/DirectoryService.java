@@ -74,4 +74,13 @@ public class DirectoryService {
             throw new Exception("not owned by you");
         return directory.getParent().getId();
     }
+
+    public Directory findDirectory(String username, Long id) throws Exception {
+        Directory directory = directoryRepository.findById(id);
+        if (directory == null)
+            throw new Exception("directory not found");
+        if (!Objects.equals(directory.getOwner().getUsername(), username))
+            throw new Exception("not owned by you");
+        return directory;
+    }
 }
