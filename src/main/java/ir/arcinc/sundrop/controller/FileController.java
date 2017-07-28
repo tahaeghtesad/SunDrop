@@ -39,7 +39,7 @@ public class FileController {
         response.flushBuffer();
     }
 
-    @RequestMapping(value = "/info/{id}")
+    @RequestMapping(value = "/info/{id}", method = RequestMethod.GET)
     public File fileInfo(Principal user, @PathVariable("id") Long id) throws Exception {
         return fileService.getInfo(user.getName(), id);
     }
