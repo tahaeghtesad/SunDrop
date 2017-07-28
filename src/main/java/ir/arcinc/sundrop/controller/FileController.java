@@ -39,6 +39,11 @@ public class FileController {
         response.flushBuffer();
     }
 
+    @RequestMapping(value = "/info/{id}")
+    public File fileInfo(Principal user, @PathVariable("id") Long id) throws Exception {
+        return fileService.getInfo(user.getName(), id);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public boolean getFile(Principal user, @PathVariable("id") Long id) throws Exception {
             fileService.deleteFile(user.getName(),id);
