@@ -39,3 +39,12 @@ ________________________________________________________________________________
 | DELETE | /api/file/{id}              |                                  | delete file with id {id}
 | GET    | /api/file/parent/{id}       |                                  | get parent directory of file with id {id}
 |________|_____________________________|__________________________________|______________________________________________
+
+
+**** How to Run ****
+1. install maven dependencies
+2. add libraries to classpath
+3. run SundropApplication.main()
+--------------------------------
+**alternative**
+run: "mvn spring-boot:run"
