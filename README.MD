@@ -1,4 +1,5 @@
-****Authorization****                                                           _____________________
+****Authorization****
+                                                           _____________________
                                                            |                   |
                                                            |                   |
 grant_type: client_credentials                             |                   |
