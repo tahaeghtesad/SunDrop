@@ -14,6 +14,8 @@ password:<password>                                        |                   |
 Header ~> Authorization: Basic <base64: clientDetails>     |                   |
                                                            _____________________
 
+clientDetails is hardcoded as: **clientId: acme, clientSecret: acmesecret**
+
 ****ENDPOINTS****
 (use with
     **Authorization: Bearer <token>**
